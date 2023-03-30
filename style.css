@@ -1,0 +1,174 @@
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #C7B198;
+  font-family: '微軟正黑體';
+  color: #333;
+}
+
+#app {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.wrapper {
+  margin: 20px;
+  width: 800px;
+  border: 3px solid #333;
+  background-color: #F0ECE3;
+  box-shadow: 5px 5px 5px rgba(51, 51, 51, .3);
+}
+.wrapper.inputBox {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+}
+.wrapper select {
+  margin: 10px 0;
+  margin-left: 20px;
+  width: calc(100px);
+  height: 30px;
+  font-size: 16px;
+  padding-left: 10px;
+  font-family: '微軟正黑體';
+  font-weight: bold;
+  background-color: transparent;
+  border: 3px solid #333;
+}
+.wrapper select option {
+  font-family: '微軟正黑體';
+  font-weight: bold;
+}
+.wrapper label {
+  font-size: 18px;
+  font-family: '微軟正黑體';
+  font-weight: bold;
+}
+.wrapper input {
+  margin-left: 10px;
+  margin-right: 20px;
+  text-align: center;
+  height: 30px;
+  font-size: 18px;
+  font-family: '微軟正黑體';
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #333;
+}
+.wrapper input.short {
+  width: 70px;
+}
+.wrapper input.large {
+  width: 170px;
+}
+input:focus, select:focus {
+  outline: none;
+  border-bottom: 2px solid rgba(51, 51, 51, .3);
+}
+.wrapper .buttons {
+  position: absolute;
+  right: 15px;
+}
+.wrapper button {
+  margin: 0 5px;
+  width: 70px;
+  height: 40px;
+  font-size: 18px;
+  font-family: '微軟正黑體';
+  font-weight: bold;
+  background-color: transparent;
+  border: 3px solid #333;
+  cursor: pointer;
+  transition-duration: .3s;
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 3px rgba(51, 51, 51, .3);
+}
+.wrapper button:hover {
+  transform: translate(0px, 0px);
+  box-shadow: none;
+  border: 3px solid rgb(70, 70, 70);
+  color: #F0ECE3;
+}
+.wrapper button.create:hover {
+  background-color: rgb(65, 107, 224);
+}
+.wrapper button.search:hover {
+  background-color: rgb(39, 192, 52);
+}
+.wrapper button.update:hover {
+  background-color: rgb(224, 155, 65);
+}
+.wrapper button.delete:hover {
+  background-color: rgb(224, 65, 65);
+}
+
+.wrapper.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+.wrapper .inner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  max-height: 500px;
+}
+.wrapper .meal {
+  margin: 5px 10px;
+  width: 100%;
+  background-color: #DFD3C3;
+  border: 3px solid #333;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  cursor: default;
+  box-shadow: 3px 3px 3px rgba(51, 51, 51, .5);
+}
+.wrapper .meal:hover {
+  background-color: #e6ded3;
+}
+.wrapper .meal:hover span {
+  background-color: #f8f7f5;
+}
+.wrapper .meal .buttons {
+  right: 10px;
+}
+
+h3 {
+  display: inline-block;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+}
+h3.price {
+  color: rgb(70, 70, 70);
+}
+h3 span {
+  font-size: 16px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 3px solid #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+  background-color: #F0ECE3;
+}

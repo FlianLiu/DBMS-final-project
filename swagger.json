@@ -1,0 +1,147 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "menu data",
+    "description": "menu API description"
+  },
+  "tags": [
+    {
+      "name": "menu",
+      "description": "API for in the system"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "meal": [
+    "application/json"
+  ],
+  "paths": {
+    "/menu": {
+      "get": {
+        "tags": [
+          "menu"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/menu"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "menu"
+        ],
+        "summary": "Create a new meal",
+        "requestBody": {
+          "description": "meal Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/menu"
+              }
+            }
+          }
+        },
+        "meal": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/menu"
+            }
+          }
+        }
+      }
+    },
+    "/menu/{id}": {
+      "put": {
+        "tags": [
+          "menu"
+        ],
+        "summary": "Update meal",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID of the meal"
+          }
+        ],
+        "requestBody": {
+          "description": "meal Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/menu"
+              }
+            }
+          }
+        },
+        "meal": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/menu"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "menu"
+        ],
+        "summary": "Delete meal",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "ID of the meal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/menu"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "menu": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "meal": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

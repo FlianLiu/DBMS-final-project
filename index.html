@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>restaurant</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="app">
+    <div class="wrapper inputBox">
+      <label for="index">編號:</label>
+      <input id="index" class="short" type="text" v-model.trim="input.id">
+      <label for="meal">名稱:</label>
+      <input id="meal" class="large" type="text" v-model.trim="input.meal">
+      <label for="price">價格:</label>
+      <input id="price" class="short" type="text" v-model.trim="input.price">
+      <div class="buttons" v-if="!isChange">
+        <button type="button" class="create" @click="create()">新增</button>
+        <button type="button" class="search" @click="read()" v-if="!input.id">全部</button>
+        <button type="button" class="search" @click="read()" v-if="input.id">查詢</button>
+      </div>
+      <div class="buttons" v-if="isChange">
+        <button type="button" class="update" @click="update()">修改</button>
+        <button type="button" class="delete" @click="cancel()">取消</button>
+      </div>
+    </div>
+    <div class="wrapper menu">
+      <div class="inner">
+        <h2 v-if="isNull">Data Is Not Found</h2>
+        <div class="meal" v-for="meal in menu">
+          <h3><span>{{ meal.id }}</span>{{ meal.meal }}</h3>
+          <h3 class="price">${{ meal.price }}</h3>
+          <div class="buttons">
+            <button type="button" class="update" @click="change(meal)">修改</button>
+            <button type="button" class="delete" @click="deleteData(meal.id)">刪除</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.js"></script>
+  <script>
+    function reset() {
+      data.input = {
+        id: "",
+        meal: "",
+        price: ""
+      }
+      data.menu.length == 0? data.isNull = true: data.isNull = false;
+    };
+    let data = {
+      isNull: false,
+      updateBuffer: "",
+      isChange: false,
+      input: {
+        id: "",
+        meal: "",
+        price: ""
+      },
+      menu: []
+    }
+    let vm = new Vue({
+      el: "#app",
+      data: data,
+      methods: {
+        create: async function() {
+          if (data.input.id == "" || data.input.meal == "" || data.input.price == "") return;
+          if (data.menu.find(m => m.id == data.input.id)) return;
+          await axios.post("http://127.0.0.1:3000/menu", JSON.stringify(data.input)).then((res) => {
+            data.menu = res.data;
+          });
+          reset();
+        },
+        read: async function() {
+          await axios.get(`http://127.0.0.1:3000/menu/${data.input.id}`).then((res) => {
+            data.menu = res.data;
+          });
+          reset();
+        },
+        change: function(mealData) {
+          updateBuffer = mealData.id;
+          const {id, meal, price} = mealData;
+          data.input = {id, meal, price};
+          data.isChange = true;
+        },
+        cancel: function() {
+          data.isChange = false;
+          reset();
+        },
+        update: async function() {
+          if (data.input.id == "" || data.input.meal == "" || data.input.price == "") return;
+          // if (data.menu.find(m => m.id == data.input.id)) return;
+          data.isChange = false;
+          await axios.put(`http://127.0.0.1:3000/menu/${updateBuffer}`, JSON.stringify(data.input)).then((res) => {
+            data.menu = res.data;
+          });
+          reset();
+        },
+        deleteData: async function(id) {
+          await axios.delete(`http://127.0.0.1:3000/menu/${id}`).then((res) => {
+            data.menu = res.data;
+          });
+          reset();
+        }
+      }
+    });
+
+    function loadMenu() {
+      axios.get("http://127.0.0.1:3000/menu").then((res) => {
+        data.menu = res.data;
+      });
+      data.input.id = "";
+      data.input.meal = "";
+      data.input.price = "";
+    }
+
+    // main
+    loadMenu()
+
+
+
+  </script>
+</body>
+</html>
